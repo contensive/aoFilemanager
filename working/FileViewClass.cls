@@ -105,19 +105,20 @@ End Function
 Private Function GetContentFileView3(Main As Object, BasePathInput As String, AllowAdd As Boolean, AllowDelete As Boolean, AllowFileLink As Boolean, AllowFileEditing As Boolean, AllowNav As Boolean, IncludeForm As Boolean, FileSystem As String, AllowFileRadioSelect As Boolean) As String
     On Error GoTo ErrorTrap
     '
-    Dim DstFile As String
+    Dim srcPathFilename As String
+    Dim dstPathFilename As String
     Dim EditFilename As String
     Dim PathFilename As String
     Dim TextEditExtensionList As String
     Dim Pos As Long
     Dim QS As String
-    Dim Remote As ccRemote.RemoteClass
+    'Dim Remote As ccRemote.RemoteClass
     Dim Column2Ptr As Long
     Dim NamePtr As Long
     Dim ServerFilePath As String
     Dim FS As New kmaFileSystem3.FileSystemClass
     Dim FolderNav As String
-    Dim Tree As New ccNav.MenuTreeClass
+    Dim Tree As New menuTreeClass
     Dim TreeBasepath As String
     Dim RQS As String
     Dim CurrentFolder As String
@@ -257,16 +258,18 @@ Private Function GetContentFileView3(Main As Object, BasePathInput As String, Al
             ' copy this file to destination
             '
             If CurrentFolder = "\" Then
-                DstFile = PhysicalFilepath & NewFile
+                dstPathFilename = PhysicalFilepath & NewFile
             Else
-                DstFile = PhysicalFilepath & Mid(CurrentPath, 2) & NewFile
+                dstPathFilename = PhysicalFilepath & Mid(CurrentPath, 2) & NewFile
             End If
-            Set Remote = New RemoteClass
-            Remote.IPAddress = "127.0.0.1"
-            Remote.Port = "4531"
-            QS = "SrcFile=" & kmaEncodeRequestVariable(Main.PhysicalFilepath & "Upload\" & NewFile) & "&DstFile=" & kmaEncodeRequestVariable(DstFile)
-            Call Remote.ExecuteCmd("CopyFile", QS)
-            Set Remote = Nothing
+            srcPathFilename = Main.PhysicalFilepath & "Upload\" & NewFile
+            Call Main.CopyFile(srcPathFilename, dstPathFilename)
+            'Set Remote = New RemoteClass
+            'Remote.IPAddress = "127.0.0.1"
+            'Remote.port = "4531"
+            'QS = "SrcFile=" & kmaEncodeRequestVariable(Main.PhysicalFilepath & "Upload\" & NewFile) & "&DstFile=" & kmaEncodeRequestVariable(dstPathFilename)
+            'Call Remote.ExecuteCmd("CopyFile", QS)
+            'Set Remote = Nothing
         Else
             Call Main.ProcessFormInputFile("NewFile", CurrentFolder)
         End If
@@ -284,17 +287,18 @@ Private Function GetContentFileView3(Main As Object, BasePathInput As String, Al
                 Filename = PhysicalFilepath & Mid(CurrentPath, 2) & DeleteNames(Ptr)
             End If
             Call Main.TestPoint("deleting " & Filename)
-            If FileSystem = FileSystemWebsiteFiles Then
-                Set Remote = New RemoteClass
-                Remote.IPAddress = "127.0.0.1"
-                Remote.Port = "4531"
-                QS = "File=" & kmaEncodeRequestVariable(Filename)
-                Call Remote.ExecuteCmd("DeleteFile", QS)
-                Set Remote = Nothing
-            Else
-                Call Main.TestPoint("deleting " & Filename)
-                Call Main.DeleteFile(Filename)
-            End If
+            Call Main.DeleteFile(Filename)
+'            If FileSystem = FileSystemWebsiteFiles Then
+'                Set Remote = New RemoteClass
+'                Remote.IPAddress = "127.0.0.1"
+'                Remote.port = "4531"
+'                QS = "File=" & kmaEncodeRequestVariable(Filename)
+'                Call Remote.ExecuteCmd("DeleteFile", QS)
+'                Set Remote = Nothing
+'            Else
+'                Call Main.TestPoint("deleting " & Filename)
+'                Call Main.DeleteFile(Filename)
+'            End If
         Next
     End If
     '
@@ -308,18 +312,21 @@ Private Function GetContentFileView3(Main As Object, BasePathInput As String, Al
             PathTest = PhysicalFilepath & Mid(CurrentPath, 2) & NewFolder & "\"
         End If
         Call Main.TestPoint("Create Folder " & PathTest)
-        If FileSystem = FileSystemWebsiteFiles Then
-            Set Remote = New RemoteClass
-            Remote.IPAddress = "127.0.0.1"
-            Remote.Port = "4531"
-            QS = "Folder=" & kmaEncodeRequestVariable(PathTest)
-            Call Remote.ExecuteCmd("CreateFolder", QS)
-            Set Remote = Nothing
-        Else
-            PathTest = PathTest & "test.txt"
-            Call Main.SaveFile(PathTest, "content")
-            Call Main.DeleteFile(PathTest)
-        End If
+        PathTest = PathTest & "test.txt"
+        Call Main.SaveFile(PathTest, "content")
+        Call Main.DeleteFile(PathTest)
+'        If FileSystem = FileSystemWebsiteFiles Then
+'            Set Remote = New RemoteClass
+'            Remote.IPAddress = "127.0.0.1"
+'            Remote.port = "4531"
+'            QS = "Folder=" & kmaEncodeRequestVariable(PathTest)
+'            Call Remote.ExecuteCmd("CreateFolder", QS)
+'            Set Remote = Nothing
+'        Else
+'            PathTest = PathTest & "test.txt"
+'            Call Main.SaveFile(PathTest, "content")
+'            Call Main.DeleteFile(PathTest)
+'        End If
     End If
     '
     ' Delete Folders
@@ -329,24 +336,26 @@ Private Function GetContentFileView3(Main As Object, BasePathInput As String, Al
         DeleteNames = Split(DeleteList, ",")
         For Ptr = 0 To UBound(DeleteNames)
             If DeleteNames(Ptr) <> "" Then
-            If CurrentFolder = "\" Then
-                PathTest = PhysicalFilepath & DeleteNames(Ptr)
-            Else
-                PathTest = PhysicalFilepath & Mid(CurrentPath, 2) & DeleteNames(Ptr)
-            End If
-            Call Main.TestPoint("delete file folder " & PathTest)
-            If FileSystem = FileSystemWebsiteFiles Then
-                Set Remote = New RemoteClass
-                Remote.IPAddress = "127.0.0.1"
-                Remote.Port = "4531"
-                QS = "Folder=" & kmaEncodeRequestVariable(PathTest)
-                Call Remote.ExecuteCmd("DeleteFolder", QS)
-                Set Remote = Nothing
-            Else
+                If CurrentFolder = "\" Then
+                    PathTest = PhysicalFilepath & DeleteNames(Ptr)
+                Else
+                    PathTest = PhysicalFilepath & Mid(CurrentPath, 2) & DeleteNames(Ptr)
+                End If
+                Call Main.TestPoint("delete file folder " & PathTest)
                 Set FS = New FileSystemClass
                 Call FS.DeleteFileFolder(PathTest)
-                'Call Main.DeleteFile(Filename)
-            End If
+    '            If FileSystem = FileSystemWebsiteFiles Then
+    '                Set Remote = New RemoteClass
+    '                Remote.IPAddress = "127.0.0.1"
+    '                Remote.port = "4531"
+    '                QS = "Folder=" & kmaEncodeRequestVariable(PathTest)
+    '                Call Remote.ExecuteCmd("DeleteFolder", QS)
+    '                Set Remote = Nothing
+    '            Else
+    '                Set FS = New FileSystemClass
+    '                Call FS.DeleteFileFolder(PathTest)
+    '                'Call Main.DeleteFile(Filename)
+    '            End If
             End If
         Next
     End If
@@ -361,15 +370,16 @@ Dim TempPathFilename As String
         EditorFile = Main.GetStreamText("editorfile")
         If EditorFile <> "" Then
             EditorContent = Main.GetStreamText("editorcontent")
-            TempPathFilename = Main.PhysicalFilepath & "Upload\EditorContent.tmp"
-            Call Main.SaveFile(TempPathFilename, EditorContent)
-            Set FS = New FileSystemClass
-            Set Remote = New RemoteClass
-            Remote.IPAddress = "127.0.0.1"
-            Remote.Port = "4531"
-            QS = "SrcFile=" & kmaEncodeRequestVariable(TempPathFilename) & "&DstFile=" & kmaEncodeRequestVariable(EditorFile)
-            Call Remote.ExecuteCmd("CopyFile", QS)
-            Call Main.DeleteFile(TempPathFilename)
+            Call Main.SaveFile(EditorFile, EditorContent)
+            'TempPathFilename = Main.PhysicalFilepath & "Upload\EditorContent.tmp"
+            'Call Main.SaveFile(TempPathFilename, EditorContent)
+            'Set FS = New FileSystemClass
+            'Set Remote = New RemoteClass
+            'Remote.IPAddress = "127.0.0.1"
+            'Remote.port = "4531"
+            'QS = "SrcFile=" & kmaEncodeRequestVariable(TempPathFilename) & "&DstFile=" & kmaEncodeRequestVariable(EditorFile)
+            'Call Remote.ExecuteCmd("CopyFile", QS)
+            'Call Main.DeleteFile(TempPathFilename)
         End If
     End If
     '
@@ -712,7 +722,7 @@ End Function
 '
 '
 '
-Private Sub AddTreeFolders(kmafs As FileSystemClass, Main As Object, Tree As ccNav.MenuTreeClass, FullPath As String, FolderName As String, RQS As String, PhysicalFilepath As String, Depth As Long, MaxDepthPastCurrentPath As Long, CurrentPath As String)
+Private Sub AddTreeFolders(kmafs As FileSystemClass, Main As Object, Tree As menuTreeClass, FullPath As String, FolderName As String, RQS As String, PhysicalFilepath As String, Depth As Long, MaxDepthPastCurrentPath As Long, CurrentPath As String)
     On Error GoTo ErrorTrap
     '
     Dim Column2Ptr As Long
