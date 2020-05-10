@@ -1,7 +1,7 @@
 Type=OleDll
 Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#..\..\..\..\..\..\Windows\SysWOW64\stdole2.tlb#OLE Automation
 Reference=*\G{2A75196C-D9EB-4129-B803-931327F72D5C}#2.8#0#..\..\..\..\..\..\Program Files (x86)\Common Files\System\ado\msado28.tlb#Microsoft ActiveX Data Objects 2.8 Library
-Reference=*\G{DFF3508D-D3BF-4D2E-AE73-A8374E764F07}#3.4#0#..\..\..\..\My Documents\github\Release\kmafile3.dll#kma File System v3
+Reference=*\G{DFF3508D-D3BF-4D2E-AE73-A8374E764F07}#3.4#0#..\..\..\..\My Documents\github\aoFileManager\etc\kmafile3.dll#kma File System v3
 Class=FileViewClass; FileViewClass.cls
 Module=kmaCommonModule; ..\..\Release\kmaCommonModule.bas
 Class=menuTreeClass; menuTreeClass.cls
