@@ -1,7 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(\"C:/Program Files/Microsoft Visual Studio/2022/Professional/MSBuild/Current/Bin/MSBuild.exe\" aoFileManager.sln /p:Configuration=Debug /nologo /verbosity:minimal)",
+      "Bash(\"c:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/MSBuild.exe\" \"c:\\\\Git\\\\aoFilemanager\\\\aoFileManager\\\\aoFileManager.sln\" -p:Configuration=Debug -nologo -verbosity:minimal)",
+      "Bash(\"c:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/MSBuild.exe\" \"c:\\\\Git\\\\aoFilemanager\\\\aoFileManager\\\\aoFileManager\\\\aoFileManager.csproj\" -p:Configuration=Debug -nologo -verbosity:minimal)",
+      "Bash(dotnet build:*)",
+      "WebFetch(domain:api.github.com)",
+      "WebFetch(domain:gist.github.com)"
     ],
     "deny": [],
     "ask": []
