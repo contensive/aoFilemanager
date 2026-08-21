@@ -109,11 +109,10 @@ namespace Contensive.Addons.aoFileManager2.Views {
                 layoutBuilder.title = "File Manager";
                 layoutBuilder.description = $"{FileManagerController.GetFileSystemLabel(fileSystemName)} - {currentPath}";
                 layoutBuilder.isOuterContainer = true;
-                layoutBuilder.formActionQueryString = queryBase.TrimStart('?');
                 layoutBuilder.addFormHidden("CurrentPath", currentPath);
                 layoutBuilder.addFormHidden("fmFileSystem", fileSystemName);
                 layoutBuilder.addFormButton("Apply");
-                return layoutBuilder.getHtml(cp);
+                return layoutBuilder.getHtml();
             } catch (Exception ex) {
                 cp.Site.ErrorReport(ex);
                 return "<!-- File Manager, Unexpected Exception -->";
