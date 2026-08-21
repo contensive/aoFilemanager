@@ -1,11 +1,15 @@
 ﻿
 namespace Contensive.Addons.aoFileManager2 {
     public static class Constants {
-        // 
+        //
         // -- sample
         public const int version = 1;
-        // 
-        // -- request names 
+        //
+        // -- portal and feature GUIDs
+        public const string guidContentPortal = "{3fdd7c5c-68a5-435f-ba62-a3e4cb0ee61e}";
+        public const string guidPortalFeature = "{F3A7B2C1-8D4E-4F59-A6B0-1E2C3D4F5A6B}";
+        //
+        // -- request names
         public const string rnInputValue = "inputValue";
         // 
         // -- errors for resultErrList

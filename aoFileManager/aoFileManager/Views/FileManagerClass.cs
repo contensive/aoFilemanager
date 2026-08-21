@@ -23,6 +23,11 @@ namespace Contensive.Addons.aoFileManager2.Views {
                     return "<p>Access denied. Administrator login required.</p>";
                 }
                 //
+                // -- validate portal environment, redirect if not in a portal
+                if (!cp.AdminUI.EndpointContainsPortal()) {
+                    return cp.AdminUI.RedirectToPortalFeature(Constants.guidContentPortal, Constants.guidPortalFeature, "");
+                }
+                //
                 // -- read inputs
                 // -- read fmFileSystem from form POST (avoids conflict with addon ArgumentList "FileSystem" default)
                 string fileSystemName = cp.Doc.GetText("fmFileSystem");
@@ -56,14 +61,22 @@ namespace Contensive.Addons.aoFileManager2.Views {
                     FileManagerController.ProcessUpload(cp, fs, currentPath);
                 }
                 //
-                // -- build query string base for links (preserve file system selection and addon context)
+                // -- build query string base for links (preserve file system selection, addon context, and portal context)
                 string addonId = cp.Doc.GetText("addonid");
                 string addonGuid = cp.Doc.GetText("addonguid");
+                string setPortalId = cp.Doc.GetText("setPortalId");
+                string dstFeatureGuid = cp.Doc.GetText("dstFeatureGuid");
                 string queryBase = "?";
                 if (!string.IsNullOrEmpty(addonGuid)) {
                     queryBase += $"addonguid={addonGuid}";
                 } else if (!string.IsNullOrEmpty(addonId)) {
                     queryBase += $"addonid={addonId}";
+                }
+                if (!string.IsNullOrEmpty(setPortalId)) {
+                    queryBase += $"&setPortalId={setPortalId}";
+                }
+                if (!string.IsNullOrEmpty(dstFeatureGuid)) {
+                    queryBase += $"&dstFeatureGuid={dstFeatureGuid}";
                 }
                 //
                 // -- linkQs includes FileSystem for folder tree links (GET navigation)

@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="windows-1252"?>
-<Collection name="File Manager" guid="{0A080FBC-2814-407F-8F8C-CD06F422789D}" system="Yes" updatable="Yes" blockNavigatorNode="No">
+<Collection name="File Manager" 
+	guid="{0A080FBC-2814-407F-8F8C-CD06F422789D}" 
+	system="Yes" 
+	updatable="Yes" 
+  	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  	xsi:noNamespaceSchemaLocation="https://contensive.s3.amazonaws.com/xsd/Collection.xsd"
+	blockNavigatorNode="No">
 	<HelpLink>http://support.contensive.com/File-Manager-Collection</HelpLink>
 	<Help></Help>
-	<Addon name="File Manager" guid="{B966103C-DBF4-4655-856A-3D204DEF6B21}" type="Add-on">
+	<!-- content portal {3fdd7c5c-68a5-435f-ba62-a3e4cb0ee61e} -->
+	<!-- content portal feature tools {60D588B7-AF8C-4CEB-80DA-20CACD1C0AD5} -->
+	<ImportCollection name="Content Portal">{1bf746b1-0a57-40d1-a2b7-53a0bcf6941e}</ImportCollection>
+	<Addon name="File Manager" guid="{B966103C-DBF4-4655-856A-3D204DEF6B21}" Type="Tool">
 		<Copy></Copy>
 		<CopyText></CopyText>
-		<ActiveXProgramID></ActiveXProgramID>
 		<DotNetClass><![CDATA[Contensive.Addons.aoFileManager2.Views.FileManagerClass]]></DotNetClass>
 		<ArgumentList><![CDATA[FileSystem=cdnFiles[cdnFiles|wwwFiles|tempFiles|privateFiles]]]></ArgumentList>
 		<AsAjax>No</AsAjax>
@@ -22,7 +30,7 @@
 		<JavascriptBodyEnd></JavascriptBodyEnd>
 		<MetaDescription></MetaDescription>
 		<OtherHeadTags></OtherHeadTags>
-		<Content>Yes</Content>
+		<Content>No</Content>
 		<Template>No</Template>
 		<Email>No</Email>
 		<Admin>No</Admin>
@@ -38,7 +46,15 @@
 		<Styles></Styles>
 		<Scripting Language="" EntryPoint="" Timeout="5000"/>
 	</Addon>
-	<Resource name="FileManager.dll" type="assembly" path="" />
 	<Resource name="layoutFiles.zip" type="content" path="layoutFiles" />
 <NavigatorEntry Name="File Manager" NameSpace="Tools" NavIconTitle="" NavIconType="Tool" LinkPage="" ContentName="" AdminOnly="1" DeveloperOnly="0" NewWindow="" Active="1" AddonName="File Manager" guid="{085FA70B-E78D-4CCF-AAA3-E5703EE9D8C1}"/>
+	<Data>
+		<Record Content="Portal Features" Guid="{F3A7B2C1-8D4E-4F59-A6B0-1E2C3D4F5A6B}" Name="Content - Tools - File Manager">
+			<field Name="portalid">{3fdd7c5c-68a5-435f-ba62-a3e4cb0ee61e}</field>
+			<field Name="parentfeatureid">{60D588B7-AF8C-4CEB-80DA-20CACD1C0AD5}</field>
+			<field Name="addonid">{B966103C-DBF4-4655-856A-3D204DEF6B21}</field>
+			<field Name="datacontentid"></field>
+			<field Name="heading">File Manager</field>
+		</Record>
+	</Data>
 </Collection>

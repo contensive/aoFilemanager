@@ -10,7 +10,7 @@
     <Deterministic>false</Deterministic>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Contensive.CPBaseClass" Version="24.5.1.13" />
+    <PackageReference Include="Contensive.CPBaseClass" Version="26.8.21.23137" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
   <ItemGroup>
