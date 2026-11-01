@@ -33,7 +33,7 @@
 		<Content>No</Content>
 		<Template>No</Template>
 		<Email>No</Email>
-		<Admin>No</Admin>
+		<Admin>yes</Admin>
 		<OnPageEndEvent>No</OnPageEndEvent>
 		<OnPageStartEvent>No</OnPageStartEvent>
 		<OnBodyStart>No</OnBodyStart>
