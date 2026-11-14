@@ -19,7 +19,7 @@ param(
     [string]$TargetDomain = 'www.contensive.com'
 )
 
-Stop = 'Stop'
+$ErrorActionPreference = 'Stop'
 
 Import-Module (Join-Path $PSScriptRoot '..\..\Contensive5\scripts\deploy-to-addon-library.psm1') -Force
 

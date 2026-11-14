@@ -1,4 +1,4 @@
-#Requires -Version 5.1
+﻿#Requires -Version 5.1
 [CmdletBinding()]
 param(
     [ValidateSet('Debug','Release')]
@@ -70,8 +70,10 @@ switch ($DeployType) {
         Write-Host ""
     }
     default {
-        Write-Host "Press any key to continue or Ctrl+C to cancel..."
-        $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
+        if (-not $env:CONTENSIVE_NOPAUSE) {
+            Write-Host "Press any key to continue or Ctrl+C to cancel..."
+            $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')
+        }
         Write-Host ""
     }
 }
