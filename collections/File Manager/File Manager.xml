@@ -7,7 +7,9 @@
   	xsi:noNamespaceSchemaLocation="https://contensive.s3.amazonaws.com/xsd/Collection.xsd"
 	blockNavigatorNode="No">
 	<HelpLink>http://support.contensive.com/File-Manager-Collection</HelpLink>
-	<Help></Help>
+	<Help><![CDATA[Take control of your site's files without leaving the administration area. This collection adds a simple, familiar file browser to the Tools menu, so administrators can see what is stored on the site and tidy it up in a few clicks, with no need for server access or special software.
+
+Browse folders, upload new files, create folders, and delete files or folders you no longer need, all from one screen. Switch between the site's public website files, CDN files, temporary files, and private files, and open or preview supported files directly from the list. File sizes and modified dates are shown at a glance, making it easy to spot what is old or oversized. Access is limited to administrators, so your files stay protected.]]></Help>
 	<!-- content portal {3fdd7c5c-68a5-435f-ba62-a3e4cb0ee61e} -->
 	<!-- content portal feature tools {60D588B7-AF8C-4CEB-80DA-20CACD1C0AD5} -->
 	<ImportCollection name="Content Portal">{1bf746b1-0a57-40d1-a2b7-53a0bcf6941e}</ImportCollection>
