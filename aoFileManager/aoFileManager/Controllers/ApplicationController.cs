@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using Contensive.BaseClasses;
 using static Contensive.Addons.aoFileManager2.Constants;
-using static Newtonsoft.Json.JsonConvert;
 
 namespace Contensive.Addons.aoFileManager2 {
     namespace Controllers {
@@ -64,7 +63,7 @@ namespace Contensive.Addons.aoFileManager2 {
             /// <returns></returns>
             public string getResponse() {
                 try {
-                    return SerializeObject(new ResponseClass() {
+                    return cp.JSON.Serialize( new ResponseClass() {
                         success = responseErrorList.Count.Equals(0),
                         nodeList = responseNodeList,
                         errorList = responseErrorList,
